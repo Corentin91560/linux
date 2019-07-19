@@ -64,24 +64,6 @@ reset_todos () {
 	echo "Delete All Todos"
 }
 
-search_todo () {
-	if [ -z $@ ]
-		then
-			read -p "Type any number or text for search: " search_original
-			search_todo $search_original
-		else
-		result=`grep "$@" $ROOT_FILE`
-		search_total=`grep "$@" $ROOT_FILE | wc -l`
-	    [ -z $search_total ] && search_total="0" || search_total=$search_total
-
-		echo "========================================================================"
-		echo "ID : Title                                                    Total: "$search_total
-		echo "------------------------------------------------------------------------"
-		echo "${result}"
-		echo "========================================================================"
-	fi
-}
-
 initialize () {
 
 	# Create dir if it does not exist yet
@@ -110,9 +92,6 @@ case $1 in
 		;;
 	"-r"|"--reset")
 		reset_todos
-		;;
-	"-s"|"--search")
-		search_todo ${*:2}
 		;;
 	*)
 		echo "todo -a for add , -d for delete, -l for list, -r for reset, -s for search"
